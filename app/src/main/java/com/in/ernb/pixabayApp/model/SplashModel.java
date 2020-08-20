@@ -49,12 +49,13 @@ public class SplashModel implements PresenterToModel {
     public void getwallpaperForSpalsh(AppPreferences preferences) {
         //presenter = new SplashPresenter(this);
         this.mPref = preferences;
-        Log.e("MODEL", "\t");
+        //Log.e("MODEL", "\t");
         int id = mPref.getIdCount();
+        Log.e("MODEL", "\t Before ID is\t" + id);
+
         SearchApi searchApi = APIClient.getSearchApi();
         Call<JsonElement> wallpaperImage = searchApi
                 .getWallpaperImage("yellow+flowers", "photo", id);
-
         wallpaperImage.enqueue(callback);
 
     }
@@ -64,11 +65,11 @@ public class SplashModel implements PresenterToModel {
         public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
             JSONObject jsonObject = null;
             if (response.isSuccessful()) {
-                Log.e("MODEL", "\t Response Sucess");
+               // Log.e("MODEL", "\t Response Sucess");
                 JsonElement result = response.body();
-                Log.e("MODEL", "\t Result \t" + result);
+               // Log.e("MODEL", "\t Result \t" + result);
                 String str = result.toString();
-                Log.e("MODEL", "\t String \t" + str);
+                //Log.e("MODEL", "\t String \t" + str);
 
                 try {
                     jsonObject = new JSONObject(str);
@@ -78,13 +79,9 @@ public class SplashModel implements PresenterToModel {
 
                 if (jsonObject != null) {
                     try {
-                        int id = mPref.getIdCount();
-                        if (id < 195899)
-                            mPref.incrementId(id + 1);
-                        else
-                            mPref.incrementId(195890);
+
                         String imageUrl = parseresult(jsonObject);
-                        Log.e("MODEL", "\t Image Url\t" + imageUrl);
+                       // Log.e("MODEL", "\t Image Url\t" + imageUrl);
                         modelToPresenter.transferDataToPresenter(imageUrl);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -107,8 +104,8 @@ public class SplashModel implements PresenterToModel {
 
     private String parseresult(JSONObject result) throws JSONException {
         JSONArray array = result.getJSONArray("hits");
-        Log.e("MODEL", "\tARRAY is:\t" + array.toString());
-        Log.e("MODEL", "\tString is:\t" + result.getJSONArray("hits").getJSONObject(0).getString("largeImageURL"));
+//        Log.e("MODEL", "\tARRAY is:\t" + array.toString());
+//        Log.e("MODEL", "\tString is:\t" + result.getJSONArray("hits").getJSONObject(0).getString("largeImageURL"));
         return result.getJSONArray("hits").getJSONObject(0).getString("largeImageURL");
     }
 

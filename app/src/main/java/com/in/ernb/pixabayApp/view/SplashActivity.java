@@ -12,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ImageView;
@@ -50,6 +49,7 @@ public class SplashActivity extends AppCompatActivity implements SplashPresenter
         imageView =findViewById(R.id.wallpaper);
         checkForPermissions();
         presenter = new SplashPresenter(this);
+        //Transfering control to presenter
         presenter.ini_(preferences);
     }
 
@@ -61,6 +61,12 @@ public class SplashActivity extends AppCompatActivity implements SplashPresenter
 
     @Override
     public void UpdateView(final String url) {
+        int id = preferences.getIdCount();
+        if(id <195899)
+        preferences.incrementId(id+1);
+        else{
+            preferences.incrementId(195890);
+        }
         Log.e("VIEW","\tURL :"+url);
         Glide.with(this).load(url).into(imageView);
         new Handler().postDelayed(new Runnable() {
@@ -77,6 +83,7 @@ public class SplashActivity extends AppCompatActivity implements SplashPresenter
 
     private void checkForPermissions() {
         if (!isPermissionsGranted()) {
+            preferences.incrementId(195890);
             ActivityCompat.requestPermissions(SplashActivity.this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_CODE_STORAGE_PERMISSION);
@@ -90,7 +97,7 @@ public class SplashActivity extends AppCompatActivity implements SplashPresenter
                 return false;
             }
         }
-        preferences.incrementId(195890);
+
         return true;
     }
 

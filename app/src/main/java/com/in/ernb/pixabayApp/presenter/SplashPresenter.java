@@ -41,7 +41,8 @@ public class SplashPresenter implements ModelToPresenter {
 
     @Override
     public void transferDataToPresenter(String url) {
-        Log.e("PRESENTER","\tURL IS:\t"+url);
+        //Log.e("PRESENTER","\tURL IS:\t"+url);
+
         view.UpdateView(url);
     }
 

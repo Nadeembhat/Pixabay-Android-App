@@ -103,8 +103,6 @@ public class SearchResultActivity extends AppCompatActivity implements Presenter
                 case R.id.action_download:
                     downloadImage(position);
                     break;
-//                case R.id.favbutton:
-//                    appPreferences.setFavImage();
             }
         }
     };

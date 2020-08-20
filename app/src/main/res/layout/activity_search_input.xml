@@ -95,5 +95,21 @@
 
         </LinearLayout>
 
+<LinearLayout
+    android:id="@+id/layout_button_search"
+    style="@style/SpinnerLayout"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:layout_below="@+id/layout_spinner_orientation">
+        <Button
+            android:id="@+id/button_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Search All" />
+</LinearLayout>
+
+
     </RelativeLayout>
 </FrameLayout>

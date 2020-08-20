@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
@@ -16,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.in.ernb.pixabayApp.R;
+
 /**
  * Author Nadeem Bhat ,
  * Created by Nadeem Bhat on Wednesday, Aug, 2020.
@@ -34,6 +36,7 @@ public class SearchInputActivity extends AppCompatActivity {
     private Spinner spinnerType;
     private Spinner spinnerCategory;
     private Spinner spinnerOrientation;
+    private Button buttonSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +49,22 @@ public class SearchInputActivity extends AppCompatActivity {
         spinnerType = findViewById(R.id.spinner_type);
         spinnerCategory = findViewById(R.id.spinner_category);
         spinnerOrientation = findViewById(R.id.spinner_orientation);
+        buttonSearch = findViewById(R.id.button_search);
+
+
 
         findViewById(R.id.layout_spinner_type).setOnClickListener(listener);
         findViewById(R.id.layout_spinner_category).setOnClickListener(listener);
         findViewById(R.id.layout_spinner_orientation).setOnClickListener(listener);
-
+        findViewById(R.id.layout_button_search).setOnClickListener(listener);
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchInputActivity.this, SearchResultActivity.class);
+                intent.putExtra(TAG_INPUT, "All");
+                startActivity(intent);
+            }
+        });
         SearchView searchView = findViewById(R.id.search_view);
         searchView.setActivated(true);
         searchView.setOnQueryTextListener(queryTextListener);
@@ -69,6 +83,11 @@ public class SearchInputActivity extends AppCompatActivity {
                 case R.id.layout_spinner_orientation:
                     spinnerOrientation.performClick();
                     break;
+                case R.id.layout_button_search:
+                    Intent intent = new Intent(SearchInputActivity.this, SearchResultActivity.class);
+                    intent.putExtra(TAG_INPUT, "All");
+                    startActivity(intent);
+
             }
         }
     };
@@ -88,10 +107,14 @@ public class SearchInputActivity extends AppCompatActivity {
 
     private void startSearchResultActivity(String input) {
         Intent intent = new Intent(SearchInputActivity.this, SearchResultActivity.class);
-        intent.putExtra(TAG_INPUT, input);
-        intent.putExtra(TAG_TYPE, spinnerType.getSelectedItem().toString());
-        intent.putExtra(TAG_CATEGORY, spinnerCategory.getSelectedItem().toString());
-        intent.putExtra(TAG_ORIENTATION, spinnerOrientation.getSelectedItem().toString());
+        if (input != null) {
+            intent.putExtra(TAG_INPUT, input);
+            intent.putExtra(TAG_TYPE, spinnerType.getSelectedItem().toString());
+            intent.putExtra(TAG_CATEGORY, spinnerCategory.getSelectedItem().toString());
+            intent.putExtra(TAG_ORIENTATION, spinnerOrientation.getSelectedItem().toString());
+        } else {
+            intent.putExtra(TAG_INPUT, "All");
+        }
         startActivity(intent);
     }
 
