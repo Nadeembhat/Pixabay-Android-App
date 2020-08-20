@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0.6"
+        android:src="@drawable/wlp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <TextView
+            android:id="@+id/txt_search_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_top_search_view"
+            android:fontFamily="sans-serif-condensed"
+            android:shadowColor="@color/colorTextTitleShadow"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:text="@string/search_on_pixabay"
+            android:textColor="@color/colorTextTitle"
+            android:textSize="@dimen/text_size_search_title"
+            android:textStyle="bold" />
+
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_search_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_top_search_view"
+            android:iconifiedByDefault="false"
+            android:queryHint="@string/search_hint" />
+
+        <LinearLayout
+            android:id="@+id/layout_spinner_type"
+            style="@style/SpinnerLayout"
+            android:layout_below="@+id/search_view">
+
+            <TextView
+                android:id="@+id/spinner_type_title"
+                style="@style/SpinnerTitle"
+                android:text="@string/title_image_type" />
+
+            <Spinner
+                android:id="@+id/spinner_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/types" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_spinner_category"
+            style="@style/SpinnerLayout"
+            android:layout_below="@+id/layout_spinner_type">
+
+            <TextView
+                android:id="@+id/spinner_category_title"
+                style="@style/SpinnerTitle"
+                android:text="@string/category" />
+
+            <Spinner
+                android:id="@+id/spinner_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/categories" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_spinner_orientation"
+            style="@style/SpinnerLayout"
+            android:layout_below="@+id/layout_spinner_category">
+
+            <TextView
+                android:id="@+id/spinner_orientation_title"
+                style="@style/SpinnerTitle"
+                android:text="@string/orientation" />
+
+            <Spinner
+                android:id="@+id/spinner_orientation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/orientations" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</FrameLayout>
